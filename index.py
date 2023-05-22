@@ -31,5 +31,3 @@ for exercise in data:
 
     # Imprimir el valor óptimo de la función objetivo
     print("Valor óptimo = ", value(prob.problem.objective))
-
-    exit()
