@@ -53,7 +53,17 @@ class Lineal_Process:
         count = len(self.data["variables"])
         coincidences = ecuation_coincidence.GetCoincidences(goalFunction)
 
+        names = []
+        values = []
+
         for coincidence in coincidences:
             number = coincidence[0]
             variableName = coincidence[1]
-            print(number, type(number), variableName, type(variableName))
+            names.append(variableName)
+            values.append(number)
+        
+        x = [LpVariable(names[i], lowBound = 0) for i in range(count) ]
+        z = LpAffineExpression([ (x[i],values[i]) for i in range(count)])
+
+        # Se setea la funcion objetivo
+        self.problem += z

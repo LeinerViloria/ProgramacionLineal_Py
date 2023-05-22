@@ -8,7 +8,7 @@ class ecuation_coincidence:
         for i in range(len(coincidences)):
             number, variable = coincidences[i]
             number = number.replace(" ", "")
-            number = float(number)  # Convertir a tipo float
+            number = float(number)
             variable = variable.replace(" ", "")
             coincidences[i] = (number, variable)
         return coincidences
