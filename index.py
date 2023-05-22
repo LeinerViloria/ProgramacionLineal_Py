@@ -20,6 +20,7 @@ for exercise in data:
         prob = Minimizar(exercise)
 
     prob.Run()
+    print(prob.problem)
 
     # Imprimir el estado de la solución
     print("Estado:", LpStatus[prob.problem.status])
@@ -30,3 +31,5 @@ for exercise in data:
 
     # Imprimir el valor óptimo de la función objetivo
     print("Valor óptimo = ", value(prob.problem.objective))
+
+    exit()
