@@ -11,3 +11,5 @@ elif(data["objetivo"] == "minimizar"):
     prob = Minimizar(data)
 
 prob.Run()
+
+print(prob.problem)

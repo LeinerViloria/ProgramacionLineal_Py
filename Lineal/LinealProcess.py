@@ -7,14 +7,13 @@ class Lineal_Process:
         self.problem_type = problem_type
 
     def Run(self):
-        self.SetVariables()
         self.SetProblem()
-        self.SetGoalFunction()
+        self.SetVariables()
+        # self.SetGoalFunction()
         self.SetRestrictions()
-
         print(self.problem)
 
-        # self.problem.solve()
+        self.problem.solve()
 
     # Crear el problema de programación lineal
     def SetProblem(self):
@@ -25,7 +24,9 @@ class Lineal_Process:
         variables = self.data["variables"]
         for variable in variables:
             # Variable X >= 0
-            globals()[variable] = LpVariable(variable, lowBound=0)
+            newVariable = LpVariable(variable, lowBound=0)
+            globals()[variable] = newVariable
+            # self.problem.addVariable(newVariable)
 
     # Restricciones
     def SetRestrictions(self):
@@ -42,7 +43,7 @@ class Lineal_Process:
             constant = float(restriction["right"])
 
             newRestriction = LpConstraint(e, sense, name, constant)
-            self.problem += newRestriction
+            self.problem.addConstraint(newRestriction, name)
 
     def _get_sense(self, condition):
         sense = None
@@ -73,7 +74,13 @@ class Lineal_Process:
             variableName = coincidence[1]
             names.append(variableName)
             values.append(number)
-        
-        x = [LpVariable(names[i], lowBound = 0) for i in range(total) ]
+
+        x = None
+
+        if(self.problem.numVariables() <= 0):
+            x = [LpVariable(names[i], lowBound = 0) for i in range(total) ]
+        else:
+            x = self.problem.variables()
+
         z = LpAffineExpression([ (x[i],values[i]) for i in range(total)])
         return z
