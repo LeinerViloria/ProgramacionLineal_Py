@@ -23,8 +23,7 @@ class Lineal_Process:
         variables = self.data["variables"]
         for variable in variables:
             # Variable X >= 0
-            newVariable = LpVariable(variable, lowBound=0)
-            globals()[variable] = newVariable
+            globals()[variable] = LpVariable(variable, lowBound=0)
 
     # Restricciones
     def SetRestrictions(self):

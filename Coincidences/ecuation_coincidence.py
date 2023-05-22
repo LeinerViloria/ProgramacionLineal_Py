@@ -3,7 +3,7 @@ import re
 class ecuation_coincidence:
     @staticmethod
     def GetCoincidences(expression):
-        pattern = r"([-+]?\s*\d+)\s*\*\s*([a-zA-Z]\w*)"
+        pattern = r"([-+]?\s*\d+(?:\.\d+)?)\s*\*\s*([a-zA-Z]\w*)"
         coincidences = re.findall(pattern, expression)
         for i in range(len(coincidences)):
             number, variable = coincidences[i]
