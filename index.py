@@ -10,4 +10,4 @@ if(data["objetivo"] == "maximizar"):
 elif(data["objetivo"] == "minimizar"):
     prob = Minimizar(data)
 
-# print(prob.variables_dictionary)
+prob.Run()

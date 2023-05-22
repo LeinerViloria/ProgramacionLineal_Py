@@ -4,12 +4,12 @@
     "funcionObjetivo" : "3 * x1 + 5 * x2",
     "restricciones":[
         {
-            "left":"2 * x1 + x2",
+            "left":"2 * x1 + 1 * x2",
             "condition":"<=",
             "right":"10"
         },
         {
-            "left":"x1 + 3 * x2",
+            "left":"1 * x1 + 3 * x2",
             "condition":"<=",
             "right":"12"
         }

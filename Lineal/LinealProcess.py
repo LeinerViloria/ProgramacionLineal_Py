@@ -5,15 +5,16 @@ class Lineal_Process:
     def __init__(self, data, problem_type):
         self.data = data
         self.problem_type = problem_type
+
+    def Run(self):
         self.SetVariables()
         self.SetProblem()
         self.SetGoalFunction()
-        # self.SetRestrictions()
+        self.SetRestrictions()
 
-    def _get_constrain(self, sense):
-        pass
-        # result = LpConstraint.from_dict(code)
-        # print(result)
+        print(self.problem)
+
+        # self.problem.solve()
 
     # Crear el problema de programación lineal
     def SetProblem(self):
@@ -28,16 +29,20 @@ class Lineal_Process:
 
     # Restricciones
     def SetRestrictions(self):
-        print(type(self.problem))
         restrictions = self.data["restricciones"]
+        i = 0
+        count = len(self.data["variables"])
 
         for restriction in restrictions:
+            i+=1
+            expression = restriction["left"]
             sense = self._get_sense(restriction["condition"])
-            name = "Restriccion"
-            e = None
-            print(sense)
-            # equivalent_code = 
-            # print(type(equivalent_code))
+            name = "R"+str(i)
+            e = self.GetExpression(expression, count)
+            constant = float(restriction["right"])
+
+            newRestriction = LpConstraint(e, sense, name, constant)
+            self.problem += newRestriction
 
     def _get_sense(self, condition):
         sense = None
@@ -48,10 +53,17 @@ class Lineal_Process:
                 break
         return sense
 
+    # Funcion objetivo
     def SetGoalFunction(self):
         goalFunction = self.data["funcionObjetivo"]
         count = len(self.data["variables"])
-        coincidences = ecuation_coincidence.GetCoincidences(goalFunction)
+        z = self.GetExpression(goalFunction, count)
+
+        # Se setea la funcion objetivo
+        self.problem += z
+
+    def GetExpression(self, string, total):
+        coincidences = ecuation_coincidence.GetCoincidences(string)
 
         names = []
         values = []
@@ -62,8 +74,6 @@ class Lineal_Process:
             names.append(variableName)
             values.append(number)
         
-        x = [LpVariable(names[i], lowBound = 0) for i in range(count) ]
-        z = LpAffineExpression([ (x[i],values[i]) for i in range(count)])
-
-        # Se setea la funcion objetivo
-        self.problem += z
+        x = [LpVariable(names[i], lowBound = 0) for i in range(total) ]
+        z = LpAffineExpression([ (x[i],values[i]) for i in range(total)])
+        return z
