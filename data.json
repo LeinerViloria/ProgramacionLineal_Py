@@ -1,17 +1,36 @@
-{
-    "objetivo": "maximizar",
-    "variables" : ["x1", "x2"],
-    "funcionObjetivo" : "3 * x1 + 5 * x2",
-    "restricciones":[
-        {
-            "left":"2 * x1 + 1 * x2",
-            "condition":"<=",
-            "right":"10"
-        },
-        {
-            "left":"1 * x1 + 3 * x2",
-            "condition":"<=",
-            "right":"12"
-        }
-    ]
-}
+[
+    {
+        "objetivo": "maximizar",
+        "variables" : ["x1", "x2"],
+        "funcionObjetivo" : "3 * x1 + 5 * x2",
+        "restricciones":[
+            {
+                "left":"2 * x1 + 1 * x2",
+                "condition":"<=",
+                "right":"10"
+            },
+            {
+                "left":"1 * x1 + 3 * x2",
+                "condition":"<=",
+                "right":"12"
+            }
+        ]
+    },
+    {
+        "objetivo": "minimizar",
+        "variables" : ["x1", "x2"],
+        "funcionObjetivo" : "3 * x1 + 5 * x2",
+        "restricciones":[
+            {
+                "left":"2 * x1 + 1 * x2",
+                "condition":"<=",
+                "right":"10"
+            },
+            {
+                "left":"1 * x1 + 3 * x2",
+                "condition":"<=",
+                "right":"12"
+            }
+        ]
+    }
+]

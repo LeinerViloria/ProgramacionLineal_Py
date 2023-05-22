@@ -2,12 +2,31 @@ from JsonReader.JsonReader import JsonReader
 from Lineal.Procesos import *
 
 data = JsonReader.read_json('data.json')
+i = 0
 
-prob = None
+for exercise in data:
+    i+=1
 
-if(data["objetivo"] == "maximizar"):
-    prob = Maximizar(data)
-elif(data["objetivo"] == "minimizar"):
-    prob = Minimizar(data)
+    print()
+    print("EJERCICIO #"+str(i))
+    print()
 
-prob.Run()
+    prob = None
+    goal = exercise["objetivo"]
+
+    if(goal == "maximizar"):
+        prob = Maximizar(exercise)
+    elif(goal == "minimizar"):
+        prob = Minimizar(exercise)
+
+    prob.Run()
+
+    # Imprimir el estado de la solución
+    print("Estado:", LpStatus[prob.problem.status])
+
+    # Imprimir el valor óptimo de las variables de decisión
+    for variable in prob.problem.variables():
+        print(f"{variable.name} = {variable.varValue}")
+
+    # Imprimir el valor óptimo de la función objetivo
+    print("Valor óptimo = ", value(prob.problem.objective))
