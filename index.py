@@ -1,8 +1,7 @@
 from JsonReader.JsonReader import JsonReader
 from Lineal.Procesos import *
 
-json_reader = JsonReader('data.json')
-data = json_reader.read_json()
+data = JsonReader.read_json('data.json')
 
 prob = None
 

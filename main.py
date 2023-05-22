@@ -1,18 +1,18 @@
 from pulp import *
 
 # Crear el problema de programación lineal
-prob = LpProblem("Problema_de_Programación_Lineal", LpMinimize)
+prob = LpProblem("Problema_de_Programación_Lineal", LpMaximize)
 
 # Variables de decisión
 x1 = LpVariable("x1", lowBound=0)  # Variable x1 >= 0
 x2 = LpVariable("x2", lowBound=0)  # Variable x2 >= 0
 
 # Función objetivo
-prob += -2 * x1 - 4 * x2  # Maximizar 3x1 + 5x2
+prob += 3 * x1 + 5 * x2  # Maximizar 3x1 + 5x2
 
 # Restricciones
-prob += 2 * x1 + 3*x2 <= 7  # 2x1 + x2 <= 10
-prob += 8* x2 <= 4   # x1 + 3x2 <= 12
+prob += 2 * x1 + x2 <= 10  # 2x1 + x2 <= 10
+prob += x1 + 3 * x2 <= 12   # x1 + 3x2 <= 12
 
 # Resolver el problema
 prob.solve()

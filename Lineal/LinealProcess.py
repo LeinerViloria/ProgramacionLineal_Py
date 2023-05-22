@@ -1,4 +1,5 @@
 from pulp import *
+from Coincidences.ecuation_coincidence import *
 
 class Lineal_Process:
     def __init__(self, data, problem_type):
@@ -20,11 +21,10 @@ class Lineal_Process:
 
     # Variables de decisión
     def SetVariables(self):
-        self.variables_dictionary = {}
         variables = self.data["variables"]
         for variable in variables:
             # Variable X >= 0
-            self.variables_dictionary[variable] = LpVariable(variable, lowBound=0)
+            globals()[variable] = LpVariable(variable, lowBound=0)
 
     # Restricciones
     def SetRestrictions(self):
@@ -49,24 +49,13 @@ class Lineal_Process:
         return sense
 
     def SetGoalFunction(self):
-        goalFuncion = self.data["funcionObjetivo"]
-        term = goalFuncion.split("+")
+        goalFunction = self.data["funcionObjetivo"]
+        count = len(self.data["variables"])
+        coincidences = ecuation_coincidence.GetCoincidences(goalFunction)
 
-        info = []
-
-        for item in term:
-            currentInfo = {"name":None, "value": None}
-            values = item.split("*")
-            first = values[0].strip()
-            if(first.isdigit()):
-                second = values[1].strip()
-                currentInfo["name"] = second
-                currentInfo["value"] = first
-            else:
-                second = values[1].strip()
-                currentInfo["name"] = first
-                currentInfo["value"] = second
-
-            info.append(currentInfo)
-        
-        # print(LpAffineExpression.)
+        for coincidence in coincidences:
+            number = eval(coincidence[0])
+            variableName = coincidence[1]
+            if not coincidence[0].isdigit():
+                Exception("Invalid number")
+            # print(number, type(number), variableName, type(variableName))
