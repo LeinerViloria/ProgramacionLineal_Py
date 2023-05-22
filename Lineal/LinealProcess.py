@@ -54,8 +54,6 @@ class Lineal_Process:
         coincidences = ecuation_coincidence.GetCoincidences(goalFunction)
 
         for coincidence in coincidences:
-            number = eval(coincidence[0])
+            number = coincidence[0]
             variableName = coincidence[1]
-            if not coincidence[0].isdigit():
-                Exception("Invalid number")
-            # print(number, type(number), variableName, type(variableName))
+            print(number, type(number), variableName, type(variableName))

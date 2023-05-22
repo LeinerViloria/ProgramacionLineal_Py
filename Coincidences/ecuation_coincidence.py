@@ -5,7 +5,10 @@ class ecuation_coincidence:
     def GetCoincidences(expression):
         pattern = r"([-+]?\s*\d+)\s*\*\s*([a-zA-Z]\w*)"
         coincidences = re.findall(pattern, expression)
-        for number, variable in coincidences:
+        for i in range(len(coincidences)):
+            number, variable = coincidences[i]
             number = number.replace(" ", "")
+            number = float(number)  # Convertir a tipo float
             variable = variable.replace(" ", "")
+            coincidences[i] = (number, variable)
         return coincidences
