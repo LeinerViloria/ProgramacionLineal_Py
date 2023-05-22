@@ -9,9 +9,8 @@ class Lineal_Process:
     def Run(self):
         self.SetProblem()
         self.SetVariables()
-        # self.SetGoalFunction()
+        self.SetGoalFunction()
         self.SetRestrictions()
-        print(self.problem)
 
         self.problem.solve()
 
@@ -26,10 +25,10 @@ class Lineal_Process:
             # Variable X >= 0
             newVariable = LpVariable(variable, lowBound=0)
             globals()[variable] = newVariable
-            # self.problem.addVariable(newVariable)
 
     # Restricciones
     def SetRestrictions(self):
+        self.problem.checkDuplicateVars()
         restrictions = self.data["restricciones"]
         i = 0
         count = len(self.data["variables"])
@@ -61,7 +60,7 @@ class Lineal_Process:
         z = self.GetExpression(goalFunction, count)
 
         # Se setea la funcion objetivo
-        self.problem += z
+        self.problem.objective = z
 
     def GetExpression(self, string, total):
         coincidences = ecuation_coincidence.GetCoincidences(string)
