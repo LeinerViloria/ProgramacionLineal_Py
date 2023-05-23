@@ -21,7 +21,7 @@ Al abrirlo te encontrarás algo como:
 En el objetivo irá "minimizar" o "maximizar" según el ejercicio
 En las variables se recomienda una la sintaxis de x acompañado de un numero, ya que python organizará las letras y podría sincronizarse cosas que no son, por ejemplo, si se tiene x, y y k, se podría meter como x1, x2, x3, respectivamente
 
-Donde se requieran ecuaciones se recomienda ser claro, por ejemplo, en vez de escribir x1, escribir 1 * x1, y si la variable x1 no fuera, se pondría 0 * x1; no meter ecuaciones con parentesis
+Donde se requieran ecuaciones se recomienda ser claro, por ejemplo, en vez de escribir x1, escribir 1 * x1; no meter ecuaciones con parentesis
 
 En las restricciones se encontrará un listado de restricciones donde estará el valor izquierdo, la condición y el valor constante numerico
 
