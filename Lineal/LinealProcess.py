@@ -30,14 +30,13 @@ class Lineal_Process:
         self.problem.checkDuplicateVars()
         restrictions = self.data["restricciones"]
         i = 0
-        count = len(self.data["variables"])
 
         for restriction in restrictions:
             i+=1
             expression = restriction["left"]
             sense = self._get_sense(restriction["condition"])
             name = "R"+str(i)
-            e = self.GetExpression(expression, count)
+            e = self.GetExpression(expression)
             constant = float(restriction["right"])
 
             newRestriction = LpConstraint(e, sense, name, constant)
@@ -55,13 +54,13 @@ class Lineal_Process:
     # Funcion objetivo
     def SetGoalFunction(self):
         goalFunction = self.data["funcionObjetivo"]
-        count = len(self.data["variables"])
-        z = self.GetExpression(goalFunction, count)
+        z = self.GetExpression(goalFunction)
 
         # Se setea la funcion objetivo
         self.problem.objective = z
 
-    def GetExpression(self, string, total):
+    def GetExpression(self, string):
+        total = len(self.data["variables"])
         coincidences = ecuation_coincidence.GetCoincidences(string)
 
         names = []
@@ -76,9 +75,18 @@ class Lineal_Process:
         x = None
 
         if(self.problem.numVariables() <= 0):
-            x = [LpVariable(names[i], lowBound = 0) for i in range(total) ]
+            x = [LpVariable(self.data["variables"][i], lowBound = 0) for i in range(total) ]
         else:
             x = self.problem.variables()
 
-        z = LpAffineExpression([ (x[i],values[i]) for i in range(total)])
+        variablesToUse = []
+
+        for CurrentValue in x:
+            if str(CurrentValue) in names:
+                variablesToUse.append(CurrentValue)
+
+        totalUsing = len(variablesToUse)
+
+        z = LpAffineExpression([ (variablesToUse[i],values[i]) for i in range(totalUsing)])
+
         return z
