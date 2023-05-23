@@ -37,5 +37,27 @@
                 "right":"12"
             }
         ]
+    },
+    {
+        "objetivo": "maximizar",
+        "variables" : ["x1", "x2", "x3"],
+        "funcionObjetivo" : "-1 * x1 + 2 * x2 + 1 * x3",
+        "restricciones":[
+            {
+                "left":"0 * x1 + 3 * x2 + 1 * x3",
+                "condition":"<=",
+                "right":"120"
+            },
+            {
+                "left":"1 * x1 - 1 * x2 - 4*x3",
+                "condition":"<=",
+                "right":"80"
+            },
+            {
+                "left":"-3 * x1 + 1 * x2 + 2*x3",
+                "condition":"<=",
+                "right":"100"
+            }
+        ]
     }
 ]
